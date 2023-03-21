@@ -1,6 +1,6 @@
 import telebot
 
-from settings import TG_TOKEN
+from settings import TG_TOKEN, ID_ADMIN
 
 bot = telebot.TeleBot(TG_TOKEN)
 
@@ -13,11 +13,8 @@ def get_text_messages(message):
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
-    print(message.text[:4])
-    print(message.from_user.id)
     if message.text[:4] == 'Дима':
-        print(1)
-        bot.send_message(808686261, message.text)
+        bot.send_message(ID_ADMIN , message.text)
     else:
         bot.send_message(message.from_user.id, message.text)
 
