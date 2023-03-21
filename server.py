@@ -10,11 +10,10 @@ def get_text_messages(message):
     bot.send_message(message.from_user.id, 'Вы запустили бота')
 
 
-
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
     if message.text[:4] == 'Дима':
-        bot.send_message(ID_ADMIN , message.text)
+        bot.send_message(ID_ADMIN, message.text)
     else:
         bot.send_message(message.from_user.id, message.text)
 
