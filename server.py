@@ -30,7 +30,7 @@ def get_text_messages(message):
     elif message.text == 'Вернуться в раздел поддержки':
         help_send(message, bot)
     else:
-        bot.send_message(message.from_user.id, message.text)
+        bot.send_message(message, message.text)
 
 
 bot.polling(none_stop=True)
