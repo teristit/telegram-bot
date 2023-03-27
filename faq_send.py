@@ -1,3 +1,6 @@
+from telebot import types
+
+
 def faq_send(message, bot):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     first = types.KeyboardButton('1.')
