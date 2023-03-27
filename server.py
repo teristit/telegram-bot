@@ -25,6 +25,10 @@ def faq_messages(message):
 def get_text_messages(message):
     if message.text[:4] == 'Дима':
         bot.send_message(ID_ADMIN, message.text)
+    elif message.text == 'FAQ':
+        faq_send(message, bot)
+    elif message.text == 'Вернуться в раздел поддержки':
+        help_send(message, bot)
     else:
         bot.send_message(message.from_user.id, message.text)
 
