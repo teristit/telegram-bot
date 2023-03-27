@@ -1,4 +1,6 @@
 import telebot
+from faq_send import faq_send
+from help_send import help_send
 
 from settings import TG_TOKEN, ID_ADMIN
 
