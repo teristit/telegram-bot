@@ -1,5 +1,23 @@
 def correct_points(text):
-    pass
+    correct_1 = 'пунктывыдачи'
+    correct_2 = 'пунктывыдачиввурнарах'
+    correct_3 = 'пунктывыдачивчебоксарах'
+    correct_4 = 'пункты'
+    correct_5 = 'пунктывурнары'
+    correct_6 = 'пунктычебоксары'
+    text = text.lower().replace(' ', '')
+    if text == correct_1 or text == correct_4:
+        return ('Пункты выдачи', True)
+    elif text == correct_2 or text == correct_5:
+        return ('Пункты выдачи в Вурнарах', True)
+    elif text == correct_3 or text == correct_6:
+        return ('Пункты выдачи в Чебоксарах', True)
+    elif correct_help(correct_3, text) or correct_help(correct_6, text):
+        return ('Пункты выдачи в Чебоксарах', False)
+    elif correct_help(correct_2, text) or correct_help(correct_5, text):
+        return ('Пункты выдачи в Вурнарах', False)
+    elif correct_help(correct_1, text) or correct_help(correct_4, text):
+        return ('Пункты выдачи', False)
 
 
 def correct_help(correct_text, source_text):
