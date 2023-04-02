@@ -27,4 +27,10 @@ def third_answer(message, bot):
 
 
 def fourth_answer(message, bot):
-    pass
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    back = types.KeyboardButton('Вернуться к часто задаваемым вопросам')
+    points = types.KeyboardButton('Пункты выдачи')
+    markup.add(points, back)
+    bot.send_message(message.from_user.id,
+                     'Для того чтобы узнать где находяться пункты выдачи достаточно '
+                     'написать "Пункты выдачи" или нажать на соответствующую кнопку', reply_markup=markup)
