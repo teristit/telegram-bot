@@ -24,4 +24,12 @@ def points_Vurnary(message, bot):
 
 
 def points_Cheboksary(message, bot):
-    pass
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    all_points = types.KeyboardButton('Вернуться ко всем пунктам выдачи')
+    back = types.KeyboardButton('Вернуться к часто задаваемым вопросам')
+    markup.add(all_points, back)
+    bot.send_message(message.from_user.id, 'Пункты выдачи в Чебоксарах распологаються по данным адресам:')
+    bot.send_message(message.from_user.id, '№1: проспект Ивана Яковлева, 4Б')
+    bot.send_message(message.from_user.id, '№2: проспект Тракторостроителей, 1/34')
+    bot.send_message(message.from_user.id, '№3: улица Ленинского Комсомола, 21А')
+    bot.send_message(message.from_user.id, '№4: улица Калинина, 105А', reply_markup=markup)
