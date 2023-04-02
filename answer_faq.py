@@ -17,7 +17,13 @@ def second_answer(message, bot):
 
 
 def third_answer(message, bot):
-    pass
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    back = types.KeyboardButton('Вернуться к часто задаваемым вопросам')
+    markup.add(back)
+    bot.send_message(message.from_user.id,
+                     '1. Получить товар можно в наших пунктах выдачи или заказать товар на дом')
+    bot.send_message(message.from_user.id,
+                     '2. Если вы закажите товар на дом то его привезет курьер', reply_markup=markup)
 
 
 def fourth_answer(message, bot):
