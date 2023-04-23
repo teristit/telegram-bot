@@ -13,6 +13,8 @@ from points_of_issue import points_of_issue, points_Vurnary, points_Cheboksary
 from correct_queries import correct_points
 
 bot = telebot.TeleBot(TG_TOKEN)
+support_check = False
+user_problem = ''
 
 
 @bot.message_handler(commands=['start'])
@@ -33,6 +35,8 @@ def faq_messages(message):
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
+    global user_problem
+    global support_check
     if message.text[:4] == 'админ':
         bot.send_message(ID_ADMIN, message.text)
     elif message.text == 'FAQ':
@@ -41,8 +45,42 @@ def get_text_messages(message):
         help_send(message, bot)
     elif message.text == 'Вернуться к часто задаваемым вопросам':
         faq_send(message, bot)
+    elif 'пун' in message.text.lower() or 'пнк' in message.text.lower() or 'пкты' in message.text.lower():
+        correct = correct_points(message.text)
+        if correct[0] == 'Пункты выдачи':
+            if correct[1]:
+                points_of_issue(message, bot)
+            else:
+                bot.send_message(message.from_user.id, 'Мои алгоритмы еще не совершены и я '
+                                                       'не совсем понял что вы имели ввиду но возможно вы хотели это:')
+                points_of_issue(message, bot)
+        elif correct[0] == 'Пункты выдачи в Вурнарах':
+            if correct[1]:
+                points_Vurnary(message, bot)
+            else:
+                bot.send_message(message.from_user.id, 'Мои алгоритмы еще не совершены и я '
+                                                       'не совсем понял что вы имели ввиду но возможно вы хотели это:')
+                points_Vurnary(message, bot)
+        elif correct[0] == 'Пункты выдачи в Чебоксарах':
+            if correct[1]:
+                points_Cheboksary(message, bot)
+            else:
+                bot.send_message(message.from_user.id, 'Мои алгоритмы еще не совершены и я '
+                                                       'не совсем понял что вы имели ввиду но возможно вы хотели это:')
+                points_Vurnary(message, bot)
+    elif message.text == 'Написать в поддержку🖍':
+        support(message, bot)
+        support_check = True
+    elif message.text == 'Создать обращение✉':
+        add_user(message, bot, user_problem)
+        support_check = False
+        user_problem = ''
     else:
-        bot.send_message(message.from_user.id, message.text)
+        if support_check:
+            user_problem += message.text
+            user_problem += '\n'
+        else:
+            bot.send_message(message.from_user.id, message.text)
 
 
 # обработка нажатия кнопки
