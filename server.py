@@ -1,10 +1,13 @@
+import sqlite3
+
 import telebot
 
+from answer_faq import second_answer, third_answer, first_answer
 from faq_send import faq_send
 from help_send import help_send
-from settings import TG_TOKEN, ID_ADMIN
-from answer_faq import second_answer, third_answer, first_answer
 from menu_send import menu_send
+from product_menu import product_menu_send, product_list_callback
+from settings import TG_TOKEN, ID_ADMIN
 
 bot = telebot.TeleBot(TG_TOKEN)
 
@@ -42,7 +45,7 @@ def get_text_messages(message):
 # обработка нажатия кнопки
 @bot.callback_query_handler(func=lambda call: True)
 def callback(call):
-    # удаление сообщения
+    # удаление InlineKeyboardButton
     bot.delete_message(call.message.chat.id, call.message.message_id)
     if call.data == 'but_faq_1':
 
@@ -54,12 +57,21 @@ def callback(call):
 
         third_answer(call, bot)
     elif call.data == 'menu_but_1':
-        pass
+        product_menu_send(call.from_user.id, bot)
     elif call.data == 'menu_but_2':
         pass
     elif call.data == 'menu_but_3':
-        pass
-
+        faq_send(call, bot)
+    elif call.data == product_list_callback:
+        con = sqlite3.connect('orders.db')
+        with con:
+            con.execute("""
+                CREATE TABLE USER (
+                    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    name TEXT,
+                    age INTEGER
+                );
+            """)
 
 
 bot.polling(none_stop=True)
