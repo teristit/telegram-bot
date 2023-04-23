@@ -8,6 +8,9 @@ from help_send import help_send
 from menu_send import menu_send
 from product_menu import product_menu_send, product_list_callback
 from settings import TG_TOKEN, ID_ADMIN
+from answers_faq import first_answer, second_answer, third_answer, fourth_answer
+from points_of_issue import points_of_issue, points_Vurnary, points_Cheboksary
+from correct_queries import correct_points
 
 bot = telebot.TeleBot(TG_TOKEN)
 
