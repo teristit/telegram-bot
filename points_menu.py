@@ -2,13 +2,11 @@ import csv
 
 from telebot import types
 
-
-# создает кнопки
-def product_menu_send(id, bot):
-    n = 'product_menu_send_'
+def points_menu_send(id, bot):
+    n = 'points_menu_send_'
     buttons = types.InlineKeyboardMarkup(row_width=1)
     # открывается файл
-    csvfile = open('db/products.csv', encoding="utf8")
+    csvfile = open('db/points.csv', encoding="utf8")
     # читаются данные и присваиваются переменной reader
     reader = csv.reader(csvfile, delimiter=';', quotechar='"')
     for index, row in enumerate(reader):
@@ -17,29 +15,29 @@ def product_menu_send(id, bot):
         # добавляется кнопка
         buttons.add(button1)
     # отправляются кнопки
-    bot.send_message(id, text='Выберите товар', reply_markup=buttons)
+    bot.send_message(id, text='Выберите пункт выдачи:', reply_markup=buttons)
 
 
 # возвращает список из callback_data
-def product_list_callback():
-    n = 'product_menu_send_'
+def points_list_callback():
+    n = 'points_menu_send_'
     d = []
     # открывается файл
-    csvfile = open('db/products.csv', encoding="utf8")
+    csvfile = open('db/points.csv', encoding="utf8")
     # читаются данные и присваиваются переменной reader
     reader = csv.reader(csvfile, delimiter=';', quotechar='"')
     for index, row in enumerate(reader):
         d.append(n + str(index))
     # возвращает список
+    print(d)
     return d
 
-
 # возвращается словарь с ценами
-def product_dict_prices():
-    n = 'product_menu_send_'
+def points_dict_prices():
+    n = 'points_menu_send_'
     d = {}
     # открывается файл
-    csvfile = open('db/products.csv', encoding="utf8")
+    csvfile = open('db/points.csv', encoding="utf8")
     # читаются данные и присваиваются переменной reader
     reader = csv.reader(csvfile, delimiter=';', quotechar='"')
     for index, row in enumerate(reader):
@@ -47,7 +45,5 @@ def product_dict_prices():
         row = row[0].split()
         # добавляется значение в словарь
         d[n + str(index)] = [row[0]]
-        # добавляется значение в словарь
-        d[n + str(index)].append(row[1])
     # возвращает словарь
     return d
