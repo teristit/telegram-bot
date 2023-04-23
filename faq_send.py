@@ -15,3 +15,12 @@ def faq_send(message, bot):
     bot.send_message(message.from_user.id, '1. Как выполнить заказ?')
     bot.send_message(message.from_user.id, '2. Как происходит оплата?')
     bot.send_message(message.from_user.id, '3. Как получить товар?', reply_markup=markup)
+
+    # создаю кнопки
+    buttons = types.InlineKeyboardMarkup(row_width=1)
+    button1 = types.InlineKeyboardButton('Как выполнить заказ?', callback_data='but_faq_1')
+    button2 = types.InlineKeyboardButton('Как происходит оплата?', callback_data='but_faq_1')
+    button3 = types.InlineKeyboardButton('Как получить товар?', callback_data='but_faq_1')
+    buttons.add(button1, button2, button3)
+    # отправка сообщения
+    bot.send_message(message.chat.id, text='Какой пунк хотие редактировать?', reply_markup=buttons)
