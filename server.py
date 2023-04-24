@@ -1,11 +1,12 @@
 import sqlite3
+from collections import Counter
 
 import telebot
 from telebot import types
 
 from answer_faq import first_answer, second_answer, third_answer
 from correct_queries import correct_points
-from data.add_user import add_user
+from users import add_user
 from faq_send import faq_send
 from help_send import help_send
 from menu_send import menu_send
@@ -257,6 +258,10 @@ def callback(call):
         summ  = user[2].split()
         summ = [int(i) for i in summ]
         summ = sum(summ)
+        res = Counter(user[1].split())
+        bot.send_message(call.from_user.id, f'Вы заказали:')
+        for i in list(set(user[1].split())):
+            bot.send_message(call.from_user.id, f'{i} {res[i]} шт')
         bot.send_message(call.from_user.id, f'отправьте {summ} на Сбер по номеру 8**********')
         menu_send(call.from_user.id, bot)
 

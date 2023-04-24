@@ -1,6 +1,6 @@
 import telebot
-from data import db_session
-from data.support_to_user import User
+import db_session
+from support_to_user import User
 
 
 def add_user(message, bot, problem):
